@@ -1,25 +1,12 @@
-const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const express = require("express");
-const connectToMongo = require("./db");
+const connectToMongo = require("./DB/db");
 
+dotenv.config({ path: "./config.env" });
+const PORT = process.env.PORT;
 const app = express();
-const port = 5000;
 
 connectToMongo();
-
-// mongoose
-//   .connect(DB, {
-//     useNewUrlParser: true,
-//     useCreteIndex: true,
-//     useUnifiedTopology: true,
-//     useFindandModify: false,
-//   })
-//   .then(() => {
-//     console.log("Successfully connected to Mongo");
-//   })
-//   .catch(() => {
-//     console.log("No connection found!");
-//   });
 
 //middlewares
 const middleware = (req, res, next) => {
@@ -36,6 +23,6 @@ app.get("/about", middleware, (req, res) => {
   res.send("Hello from about me page");
 });
 
-app.listen(port, () => {
-  console.log(`Serve is listening at ${port}`);
+app.listen(PORT, () => {
+  console.log(`Serve is listening at ${PORT}`);
 });
